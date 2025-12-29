@@ -133,6 +133,60 @@
   gap: 1rem;
 }
 
+.indicators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.indicator-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.indicator-label {
+  color: #6b7280;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.indicator-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.indicator-value.positive {
+  color: #047857;
+}
+
+.indicator-value.negative {
+  color: #b91c1c;
+}
+
+.indicator-chip {
+  background: #ecfdf3;
+  color: #047857;
+  border-radius: 9999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  border: 1px solid #bbf7d0;
+}
+
+.indicator-helper {
+  margin: 0.5rem 0 0;
+  color: #4b5563;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
 .insight {
   display: flex;
   gap: 1rem;

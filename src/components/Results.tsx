@@ -92,6 +92,11 @@ export default function Results({ assessmentId, onRestart, onViewHistory }: Resu
   const scoreLevel = getScoreLevel(assessment.total_emissions);
 
   const potentialReduction = recommendations.reduce((sum, rec) => sum + rec.potential_reduction, 0);
+  const averageGap = assessment.total_emissions - FRANCE_AVERAGE;
+  const targetGap = Math.max(assessment.total_emissions - TARGET_2050, 0);
+  const potentialReductionPercent = assessment.total_emissions > 0
+    ? (potentialReduction / assessment.total_emissions) * 100
+    : 0;
 
   return (
     <div className="results">
@@ -152,6 +157,43 @@ export default function Results({ assessmentId, onRestart, onViewHistory }: Resu
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      <div className="indicators-grid">
+        <div className="indicator-card">
+          <div className="indicator-label">Écart avec la moyenne française</div>
+          <div className={`indicator-value ${averageGap <= 0 ? 'positive' : 'negative'}`}>
+            {averageGap > 0 ? '+' : ''}{averageGap.toFixed(1)} tCO₂e
+          </div>
+          <p className="indicator-helper">
+            {averageGap > 0
+              ? 'Votre empreinte dépasse la moyenne nationale. Identifiez les postes prioritaires.'
+              : 'Votre empreinte est inférieure à la moyenne française, continuez vos efforts !'}
+          </p>
+        </div>
+
+        <div className="indicator-card">
+          <div className="indicator-label">Distance à l'objectif 2050</div>
+          <div className={`indicator-value ${targetGap === 0 ? 'positive' : 'negative'}`}>
+            {targetGap === 0 ? 'Objectif atteint' : `${targetGap.toFixed(1)} tCO₂e à réduire`}
+          </div>
+          <p className="indicator-helper">
+            {targetGap === 0
+              ? 'Vous êtes déjà au niveau requis pour 2050.'
+              : 'Combinez les recommandations pour vous rapprocher de l’objectif.'}
+          </p>
+        </div>
+
+        <div className="indicator-card">
+          <div className="indicator-label">Potentiel de réduction</div>
+          <div className="indicator-value positive">
+            {potentialReduction.toFixed(1)} tCO₂e
+            <span className="indicator-chip">{potentialReductionPercent.toFixed(0)}%</span>
+          </div>
+          <p className="indicator-helper">
+            Gain estimé en appliquant toutes les recommandations suggérées.
+          </p>
         </div>
       </div>
 
